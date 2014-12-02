@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	 http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	 http://www.w3.org/2001/XMLSchema-instance 
+	 http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	<!-- 数据源定义,使用C3P0 连接池 -->
+	<bean id="mysql1dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<property name="maxStatements" value="${jdbc.maxStatements}" />
+		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="${jdbc.acquireRetryAttempts}" />
+		<property name="breakAfterAcquireFailure" value="${jdbc.breakAfterAcquireFailure}" />
+	</bean>
+
+	<!-- 主库数据源 -->
+	<bean id="mysqlMainDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.main.url}" />
+		<property name="user" value="${jdbc.main.username}" />
+		<property name="password" value="${jdbc.main.password}" />
+		<property name="minPoolSize" value="${jdbc.main.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.main.maxPoolSize}" />
+		<property name="maxIdleTime" value="${jdbc.main.maxIdleTime}" />
+		<property name="acquireIncrement" value="${jdbc.main.acquireIncrement}" />
+		<property name="maxStatements" value="${jdbc.main.maxStatements}" />
+		<property name="idleConnectionTestPeriod" value="${jdbc.main.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="${jdbc.main.acquireRetryAttempts}" />
+		<property name="breakAfterAcquireFailure" value="${jdbc.main.breakAfterAcquireFailure}" />
+		<property name="testConnectionOnCheckout" value="${jdbc.main.testConnectionOnCheckout}" />
+	</bean>
+
+	<bean id="dataSource" class="com.framelib.db.DataSources">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry value-ref="mysql1dataSource" key="CLUSTER_01" />
+				<entry value-ref="mysqlMainDataSource" key="MINE_01" />
+			</map>
+		</property>
+	</bean>
+
+	<!--MyBatis integration with Spring as define sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+	</bean>
+
+
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="basePackage"
+			value="com.qianqian.**.mapper" />
+	</bean>
+
+
+</beans>

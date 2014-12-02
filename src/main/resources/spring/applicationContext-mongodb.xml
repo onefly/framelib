@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation=
+	"http://www.springframework.org/schema/beans 
+	 http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	 http://www.springframework.org/schema/data/mongo   
+	 http://www.springframework.org/schema/data/mongo/spring-mongo-1.3.xsd" >
+	 
+	<mongo:mongo host="${mongo.host}" port="${mongo.port}">
+	</mongo:mongo>
+	
+	<!-- Product db -->
+	<bean id="templateProductDB" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongo"></constructor-arg>
+		<constructor-arg name="databaseName" value="${mongo.productDB}"/>
+	</bean>
+   
+    <!-- comment db -->
+	<bean id="templateCommentDB" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongo"></constructor-arg>
+		<constructor-arg name="databaseName" value="${mongo.commentDB}"/>
+	</bean>
+   
+    <!-- consult db -->
+	<bean id="templateConsultDB" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongo"></constructor-arg>
+		<constructor-arg name="databaseName" value="${mongo.consultDB}"/>
+	</bean>
+</beans>

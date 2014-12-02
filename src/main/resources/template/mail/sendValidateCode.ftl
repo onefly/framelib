@@ -1,0 +1,1 @@
+<h1>${validateCode}</h1>
