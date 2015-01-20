@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * 配置文件读取
  * Title:ConfigUtils
  * Description:
- * @Create_by:Zhangy Yan
+ * @Create_by:caozhifei
  * @Create_date:2014-04-04
  * @Last_Edit_By:
  * @Edit_Description
