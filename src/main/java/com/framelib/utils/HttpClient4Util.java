@@ -31,13 +31,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author zhangy
- * @version 创建时间：2013-6-28 下午3:42:46 httpclient4工具类
+ * @author caozhifei
+ * @version 创建时间：2015-3-28 下午3:42:46 httpclient4工具类
  */
 public class HttpClient4Util {
 	private static Logger log = LoggerFactory.getLogger(HttpClient4Util.class);
 
-	private static HttpClient setHttpClient(HttpClient httpclient) {
+	private static void setHttpClient(HttpClient httpclient) {
 		httpclient.getParams().setParameter(ClientPNames.COOKIE_POLICY,
 				CookiePolicy.BROWSER_COMPATIBILITY);
 		httpclient.getConnectionManager().closeIdleConnections(10,
@@ -53,7 +53,6 @@ public class HttpClient4Util {
 				4000);
 		httpclient.getParams().setParameter(AllClientPNames.SO_TIMEOUT, 5000);
 
-		return httpclient;
 	}
 
 	/**
