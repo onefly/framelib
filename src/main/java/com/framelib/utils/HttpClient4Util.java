@@ -193,15 +193,15 @@ public class HttpClient4Util {
 	public static void main(String[] args) {
 		Map map = new HashMap();
 		map.put("name", "123");
-		// http://127.0.0.1:8080/baoogu/index.htm
+		// http://127.0.0.1:8080/test/index.htm
 		// String html = HttpClient4Util.get(
-		// "http://127.0.0.1:8080/baoogu/index.htm");
+		// "http://127.0.0.1:8080/test/index.htm");
 		// String message = "范围是否";
 		// message = CharTools.Utf8URLencode(message);
 		long t1 = System.currentTimeMillis();
 		for (int i = 0; i < 10000; i++) {
 			String html = HttpClient4Util.get(
-					"http://192.168.6.105:8080/member/test/login.htm", map);
+					"http://192.168.6.105:8080/test/login.htm", map);
 			// System.out.println(html);
 			if (i % 1000 == 0) {
 				System.out.println(i);
